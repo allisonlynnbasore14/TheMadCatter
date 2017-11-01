@@ -2,12 +2,11 @@ import java.awt.Graphics;
 
 public abstract class Entity{
 
-	// the abstract means you cannot make an instance of an Enity, instead it is a template for subclasses
+	// an abstract class that is a template for the creature class
 	protected Handler handler;
 	protected float x,y;
 	protected int width, height;
 	protected String type;
-	// protected Rectangle bounds;
 
 	public Entity(Handler handler, float x, float y, int width, int height, String type){
 		this.width = width;
@@ -16,12 +15,14 @@ public abstract class Entity{
 		this.y = y;
 		this.handler = handler;
 		this.type = type;
-	
+		// setting requrired attributes
 	}
 
 	public abstract void tick();
+	// Requring a tick method
 
 	public abstract void render(Graphics g);
+	// requring arender method
 
 	// Getters
 
