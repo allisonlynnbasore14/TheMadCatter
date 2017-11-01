@@ -6,6 +6,10 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
+
+// An obstacle that is looks like a truck
+// Image from http://carpng.com/tag/small-truck/
+
 public class Truck extends Obstacles{
 
 
