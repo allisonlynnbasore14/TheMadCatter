@@ -8,8 +8,7 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
-
-
+// A state for when the player reaches the target
 public class WinState extends State{
 
 	public static BufferedImage img;
@@ -17,44 +16,36 @@ public class WinState extends State{
 	public int gameWidth;
 	public int titleHeight;
 	public int titleWidth;
-	//private StartState startState;
 
 	public WinState(Handler handler){
-		super(handler); // getting it from the state class
-
-		//startState = new StartState(handler);
+		super(handler);
 	}
 
 	public void tick(){
-
+		// checking for input from the user to start the game over
 		getInput();
-
-		
 	}
 
 	public void render(Graphics g){
-		// g.setColor(Color.red);
-		// g.fillRect(10, 40, 20, 40); // x,y,width, height
-		// g.drawString("WINNER WINNER!", 50, 50);
-
+	
+		// WinScreen1 is an image I made to tell the user to restart
 		try {
 		    img = ImageIO.read(new File("winScreen1.png"));
 		} catch (IOException e) {
 			
 		}
 
-
-		int gameHeight = handler.getGame().getHeight();
-		int gameWidth = handler.getGame().getWidth();
 		int titleHeight = 700;
 		int titleWidth = 700;
-
+		
+		// Drawing the image to be centered around the words
 		g.drawImage(img, -200, -200, titleWidth, titleHeight, null);
 	}
 
 	public void getInput(){
 		
 		if(handler.getKeyManager().aUp){
+			// Resets the players position and sets the state to start state if the player hits the up key
 			handler.getGame().getGameState().getPlayer().setX(150);
 			handler.getGame().getGameState().getPlayer().setY(280);
 			State.setState(handler.getGame().getStartState());
