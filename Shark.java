@@ -6,6 +6,9 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
+// An obstacle that looks like a shark
+// Image from http://pngimg.com/download/18832
+
 public class Shark extends Obstacles{
 
 
