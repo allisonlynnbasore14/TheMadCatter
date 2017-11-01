@@ -3,9 +3,9 @@ import java.awt.image.BufferStrategy;
 import java.awt.Graphics;
 import java.awt.Color;
 
-
+	// A class for running the game's functions
 public class Game implements Runnable{
-
+	// Having Game impliment Runnable alows us to create a thread
 	private boolean running = false;
 	public Thread thread;
 	private Display display;
@@ -13,38 +13,25 @@ public class Game implements Runnable{
 	private int width, height;
 	public String title;
 
-	// public boolean inWater1;
-	// public boolean onLog1;
-
+	// variables for determining if the player is in the water and on a log
 	public boolean[] inWater;
 	public boolean[] onLog;
-
-	// public boolean inWater2;
-	// public boolean onLog2;
-
+	
 	private BufferStrategy buffStrat;
 	private Graphics g;
 	private KeyManager keyManager;
 	private GameState gameState;
-	//private EndState endState;
 	private StartState startState;
-	//private WinState winState;
 	private Handler handler; 
 
 	public float yLog;
 	public float xLog;
 
-	// public varibales can be manipulated by all classes
-	// private variabels can be manipulated and accessed by only this class
-	// protected variables can be manipulated and access by only this class and any sub class
-
-	// If something is private but you want the share option, use getters and setters
-
 	public Game(String title, int width, int height){
 		this.width = width;
 		this.height = height;
 		this.title = title;
-
+		// initlalizing the game settings
 	}
 
 	public void init(){
@@ -52,52 +39,49 @@ public class Game implements Runnable{
 		handler = new Handler(this);
 		display = new Display(title, width, height);
 		keyManager = new KeyManager();
-
+		// creating the handler, display, and keyManager
 		yLog = 0;
 		xLog = 0;
 
 		inWater = new boolean[2];
 		onLog = new boolean[2];
-
+		// createing the arrays for inWater and onLog
+		// Setting inital values to be false
 		for(int i=0; i<inWater.length;i++){
 			inWater[i] = false;
 			onLog[i] = false;
 		}
-		// inWater1 = false;
-		// onLog1 = false;
-
-		// inWater2 = false;
-		// onLog2 = false;
 
 		startState = new StartState(handler);
 		gameState = new GameState(handler);
-		//endState = new EndState(handler);
-		//winState = new WinState(handler);
 		
-		//State.setState(endState);
+		// setting the inital state to be the start state
 		State.setState(startState);
+		
+		// setting up the frame's key manager
 		display.getFrame().addKeyListener(keyManager);
 
 	}
 
 	public void tick(){
+		
+		// calling the tick function of whatever state the user is in
+		
 		if (State.getState() != null ){
 			State.getState().tick();
 		}
-
+		// calling tick for the keyManager
 		keyManager.tick();
 
 	}
 
 	public void render(){
 		buffStrat = display.getCanvas().getBufferStrategy();
-		// a buffer strategy: how to tell the computer to draw, a buffer is a hidden computer screen inside your computer
-		// without this it would glitch like old games did
-		// Basically it loads a several frames in advance and roates the path
+		// Using a buffer strategy to tell the computer to draw, the buffer is a hidden computer screen inside your computer
+		// Basically it is loading several frames in advance and routes the path
 		// You can only do this with enough memory to hold three version of a large display object
 		if(buffStrat == null){
-			display.getCanvas().createBufferStrategy(2);
-			// generally this is 2 or 3
+			display.getCanvas().createBufferStrategy(2); // generally this is 2 or 3
 			return;
 		}
 
@@ -108,17 +92,13 @@ public class Game implements Runnable{
 			State.getState().render(g); // calls the rendering of the state with the graphics object
 		}
 
-		// Temporary testing block
-		// g.setColor(Color.blue);
-		// g.fillRect(30,100,40,100);
-
 		buffStrat.show();
 		g.dispose();
 	}
 
 	public void run(){
 		init();
-
+		// Setting the speed of the game display
 		int fps = 60; // frames per second
 		double timePerTic = 1000000000/ fps; // converting
 		double delta = 0; // change in time variable
@@ -141,7 +121,6 @@ public class Game implements Runnable{
 			}
 
 			if(timer >= 1000000000){
-				// System.out.println("Ticks " + ticks);
 				ticks = 0;
 				timer = 0; // resets
 			}
@@ -149,7 +128,6 @@ public class Game implements Runnable{
 		}
 
 		stop();
-
 		// stops the game when it is running is false
 
 	}
@@ -179,7 +157,7 @@ public class Game implements Runnable{
 		}
 	}
 
-	// GETTERS
+	// Getters and Setters
 
 	public int getWidth(){
 		return width;
@@ -215,6 +193,7 @@ public class Game implements Runnable{
 	}
 
 	public int getOnLog(){
+		// returns -1 if the player is not on a log
 		for(int i = 0; i< onLog.length; i ++){
 			if(onLog[i] == true){
 				System.out.println(i);
