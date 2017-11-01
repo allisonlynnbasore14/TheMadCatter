@@ -9,6 +9,8 @@ import java.io.IOException;
 
 
 public class EndState extends State{
+	
+	// A State that the user goes to when they run into an obstacle or fall into the water
 
 	public static BufferedImage img;
 	public static BufferedImage img2;
@@ -21,26 +23,24 @@ public class EndState extends State{
 
 	public EndState(Handler handler){
 		super(handler); 
-
-		//startState = new StartState(handler);
 	}
 
 	public void tick(){
-
+		// Gets the input of the user to switch screen to the restart screen.
+		
 		getInput();
 	}
 
 	public void render(Graphics g){
-		// g.setColor(Color.black);
-		// g.fillRect(10, 40, 20, 40); // x,y,width, height
-		// g.drawString("GAME OVER YOU LOSE", 50, 50);
 
+		// endScreen1 is an image I made that asks the player to restart
 		try {
 		    img = ImageIO.read(new File("endScreen1.png"));
 		} catch (IOException e) {
 			
 		}
 
+		// sad cat is an image from https://giphy.com/gifs/cat-cry-catnip-3o7qEciAHeS
 		try {
 		    img2 = ImageIO.read(new File("sadCat.gif"));
 		} catch (IOException e) {
@@ -54,10 +54,11 @@ public class EndState extends State{
 
 		g.drawImage(img, -100, -100, titleWidth, titleHeight, null);
 		g.drawImage(img2, 40, 150, 150, 150, null);
+		// arranging the cat (img2) to be in the bottom left corner of the screen
 	}
 
 	public void getInput(){
-		
+		// If the user hits the up key, the state changes to the start screen
 		if(handler.getKeyManager().aUp){
 			handler.getGame().getGameState().getPlayer().setX(150);
 			handler.getGame().getGameState().getPlayer().setY(280);
