@@ -22,15 +22,13 @@ public class Display {
 
 	public void buildTheDisplay(){
 
-		// To make a frame you need to:
-		// Set the size, set the close operator, set the resizeable, set the location, set the visability
+		// This function builds a frame for the game
+		// Sets the size, the close operator, the resizeable, the location, the visability
 
-		// To make a canvas you need to:
-		// set size, set max and min, set focasables
+		// It also makes a canvas:
+		// sets the size, max and min, and focasables
 
-		// You also need need to put the canvas in the frame.
-		// The frame is like the backbone and the canvas is what you draw on.
-
+		// It also puts the canvas in the frame. The frame is like the backbone and the canvas is what you draw on.
 
 		f = new JFrame(title);
 		f.setSize(width, height);
@@ -48,7 +46,8 @@ public class Display {
 		f.add(c);
 		f.pack();
 	}
-
+	
+	// Getters
 
 	public Canvas getCanvas(){
 		return c;
