@@ -1,23 +1,33 @@
 
 public abstract class Creature extends Entity{
+	
+	// The creature class controls the player. If there were multiple players or other non-obstacle entities
+	// Creatures would also control them.
 
 	protected float speed;
 	protected float xMove, yMove;
 	private float prevX;
 	private float prevY;
+	
+	
 
 	public Creature(Handler handler, float x, float y, int width, int height, String type){
 		super(handler, x, y, width, height, type);
 		speed = 1.0f;
 		xMove = 0;
 		yMove = 0;
-
+		// Setting initial variables
+		// The speed is set low (usually 3.0f) because the game is designed for the player to jump with the space bar
+		// The speed is the default if the player "walks" with the arrow keys instead of jumping
 	}
 
 	public void move(){
-
+		
+		
 		int gameWidth = handler.getGame().getWidth();
 		int gameHeight = handler.getGame().getHeight();
+		
+		// Checks to make sure the player is not going off the screen, else the player does not move
 		
 		if(xMove + x + width > gameWidth || xMove + x < 0){
 			xMove = 0;
@@ -25,7 +35,8 @@ public abstract class Creature extends Entity{
 		if(yMove + y + height > gameWidth || yMove + y < 0){
 			yMove = 0;
 		}
-
+		
+		// Calls for a move in each direction according to input from the Keys
 		moveX();
 		moveY();
 	}
@@ -46,62 +57,11 @@ public abstract class Creature extends Entity{
 	}
 
 	public void moveX(){
-			x += xMove;
-
-		// if(xMove != 0.0f){
-		// 	x += xMove + 5;
-		// }else{
-			
-		// }
-		// float delta = 1.0f;
-		// if(prevX < 0.0){
-		// 	if(xMove >= -3.0f && prevX != 0.0f && prevX < - delta){
-		// 		x += prevX +  delta;
-		// 		prevX = prevX  +  delta;
-		// 		System.out.println("negatory");
-		// 	}else{
-		// 		x+= xMove;
-		// 		prevX = xMove;
-		// 	}
-		// }else{
-
-		// 	if(xMove <= 3.0f && prevX != 0.0f && prevX >  delta){
-		// 		x += prevX -  delta;
-		// 		prevX = prevX -  delta;
-		// 		System.out.println("posatory");
-		// 	}else{
-		// 		x+= xMove;
-		// 		prevX = xMove;
-		// 	}
-		// }
-
+		x += xMove;
 	}
 
 	public void moveY(){
-			y += yMove;
-
-
-		// float delta = 1.0f;
-		// if(prevY < 0.0){
-		// 	if(yMove >= -3.0f && prevY != 0.0f && prevY < - delta){
-		// 		y += prevY +  delta;
-		// 		prevY = prevY  +  delta;
-		// 		System.out.println("negatory");
-		// 	}else{
-		// 		y+= yMove;
-		// 		prevY = yMove;
-		// 	}
-		// }else{
-
-		// 	if(xMove <= 3.0f && prevY != 0.0f && prevY >  delta){
-		// 		y += prevY -  delta;
-		// 		prevY = prevY -  delta;
-		// 		System.out.println("posatory");
-		// 	}else{
-		// 		y+= yMove;
-		// 		prevY = yMove;
-		// 	}
-		// }
+		y += yMove;
 	}
 
 
