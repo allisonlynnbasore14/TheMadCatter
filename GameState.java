@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.*;
 
+// A state where the user plays the game
 
 public class GameState extends State{
-
+	// creating the world with tiles and the player
 	private World world;
 	private Player player;
 
+	// Creating the obstacles, helpers, and targets
 	private Car[] cars;
 	private int[] carPos;
 	private Car car;
@@ -30,17 +32,19 @@ public class GameState extends State{
 
 	private LaserDot laserdot;
 
+	// gameHeight is for finding the number of tile rows
 	private int gameHeight;
-
-	private int level;
 
 	public GameState(Handler handler){
 		super(handler); // getting it from the state class
 
 		world = new World(handler, "WorldsToUse/WorldB.txt");
 		int gameHeight = world.getHeight() * 2;
+		
+		// Starting the player at the bottom center
 		player = new Player(handler, 150, 280, "Player");
 
+		// initalizing obstacles, helpers, and targets
 		cars = new Car[gameHeight];
 		carPos = world.getRoadPosition();
 
@@ -54,10 +58,8 @@ public class GameState extends State{
 		logPos = world.getWaterPosition();
 
 		laserdot = new LaserDot(handler, 0, 0 , "LaserDot");
-
-		level = 1;
-	
 		
+		// Storing multiple cars in the cars array etc...
 		for(int i = 0; i< carPos.length; i++ ){
 			if (carPos[i] != 0 ){
 				car = new Car(handler, 0, carPos[i]* 50, "Car");
@@ -101,13 +103,14 @@ public class GameState extends State{
 			}
 		}
 
+		// Sets the world variable in the handler's class for easy access later
 		handler.setWorld(world);
 		
 	}
 
 	public void tick(){
 
-
+		// call the tick of the world, player, target, all the obstacles, and the helpers
 		laserdot.tick();
 		world.tick();
 		player.tick();
@@ -140,6 +143,7 @@ public class GameState extends State{
 
 	public void render(Graphics g){
 
+		// calling the render function of the world first then the obstacles, targets, player and helpers
 		world.render(g);
 
 		for(int b = 0; b < cars.length; b++){
@@ -167,11 +171,12 @@ public class GameState extends State{
 		}
 
 		laserdot.render(g);
-
 		player.render(g);
 		
 	}
 
+	// Getters
+	
 	public Player getPlayer(){
 		return player;
 	}
@@ -184,17 +189,6 @@ public class GameState extends State{
 	public int getNumLogs(){
 		return 2;
 	}
-	// public void levelUp(){
-	// 	level = level + 1;
-	// 	if(level == 2){
-	// 		world = new World(handler, "WorldsToUse/WorldA.txt");
-	// 	}else if(level == 3){
-	// 		world = new World(handler, "WorldsToUse/WorldC.txt");
-	// 	}else if(level == 4){
-	// 		System.out.println("You win FINally");
-	// 	}
-		
-	// }
 
 
 }
