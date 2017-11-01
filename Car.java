@@ -6,6 +6,10 @@ import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.IOException;
 
+
+// An obstacle that is looks like a car
+// Image from https://openclipart.org/detail/202079/car-ds4
+
 public class Car extends Obstacles{
 
 
