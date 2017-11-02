@@ -9,9 +9,10 @@ import java.util.logging.Logger;
 
 
 public class Utils{
-
-// Not sure why this does not need its own instalization
-
+	// This class if for more of the backend
+	// This is for loading files and parseing
+	
+	// LoadFileAsString load the worlds
 	public static String loadFileAsString(String path){
 		StringBuilder builder = new StringBuilder();
 
@@ -28,6 +29,7 @@ public class Utils{
 		return builder.toString();
 	}
 
+	// Parse Init turns the txt file info into the world code
 	public static int parseInt(String num){
 		try{
 			return Integer.parseInt(num);
