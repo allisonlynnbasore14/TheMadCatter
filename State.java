@@ -2,11 +2,12 @@
 import java.awt.Graphics;
 
 public abstract class State {
+	// This is an abstract class for the state files
+	// It sets a template for its childrent classes
 
 	protected Handler handler;
 
 	public State(Handler handler){
-		//super(handler);
 		this.handler = handler;
 	}
 
