@@ -1,15 +1,16 @@
 
 public class Handler {
+	// This class is for handleing the interactions between other classes
+	// For example, if the player class needs to know where the obstacles are, it references this to get the game etc..
 	
 	private Game game;
 	private World world;
-
-
 	
 	public Handler(Game game){
 		this.game = game;
-		
 	}
+	
+	// Getters
 	
 	public KeyManager getKeyManager(){
 		return game.getKeyManager();
@@ -45,53 +46,4 @@ public class Handler {
 		return 2;
 	}
 
-
 }
-
-
-// public class Handler{
-// 	private Game game;
-// 	private World world;
-
-// 	public Handler(Game game){
-// 		this.game = game;
-// 	}
-
-
-// 	// Getters
-
-// 	public Game getGame(){
-// 		return game;
-// 	}
-
-// 	public int getWidth(){
-// 		return game.getWidth();
-// 	}
-
-// 	public int getHeight(){
-// 		return game.getHeight();
-// 	}
-
-
-// 	public World getWorld(){
-// 		return world;
-// 	}
-
-// 	// Setters
-
-// 	public void setGame(Game game){
-// 		this.game = game;
-// 	}
-
-// 	public void setWorld(World world){
-// 		this.world = world;
-// 	}
-
-
-// 	// public String getKeyManager(){
-// 	// 	System.out.println("Made it to KYE");
-// 	// 	return "TEST";//game.getKeyManager();
-// 	// }
-
-
-// }
