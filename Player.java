@@ -9,7 +9,7 @@ import java.io.IOException;
 
 
 public class Player extends Creature{
-
+	// Class for handleing the player which is the current sole version of Creature
 	public static final int PLAYER_SIZE = 20;
 
 	public static BufferedImage img;
@@ -21,19 +21,19 @@ public class Player extends Creature{
 		super(handler, x, y, PLAYER_SIZE, PLAYER_SIZE, type);
 		endState = new EndState(handler);
 		spaceCount = 0;
-
-
-		// Bounds stuff goes here
 	}
 
 	public void tick(){
 
 		spaceCount = spaceCount + 1;
-		
+		// This is a debouncing method of only jumping once if the player holds down the space bar
+		// Since the space bar is touchy, it is nearly impossible to only click it once.
+		// 7 is the threashold
 		if(spaceCount > 7){
 			spaceCount = 0;
 		}
 		
+		// Finding if the player is in water and which water it is in
 		int numWater = handler.getWorld().getNumWater();
 		int[] waterStartingPositions = handler.getWorld().getWaterStartingPositions();
 		getInput( numWater);
@@ -49,12 +49,16 @@ public class Player extends Creature{
 				else{
 					y = y - 50;
 				}
-				// By hard coding this 25, it prevents the cat from jumping backwards
+				// Only allowing the player to jump forwards
+				// The 50 value is for getting off of the logs without the water collision
+				// Otherwise, the player jumps by 25 pixels each time
 			}
 		}
 
 		if(logPlayerisOn != -1){
+			// If logPlayerisOn is -1, then they are not on a log
 			for(int i = 0; i < numWater; i ++){
+				// If the player is on a log, the player moves with the log
 				if(!handler.getKeyManager().space){
 					y = handler.getGame().getYLog();
 					x = handler.getGame().getXLog();
@@ -67,29 +71,21 @@ public class Player extends Creature{
 
 
 		move();
-		
-		// GAME CAMERA Center!
-		// handler.getGameCamera().centerOnEntity(this);
 	}
 
 	public void render(Graphics g){
-
-		//g.setColor(Color.green);
-		//g.fillRect((int) x, (int) y, 20, s40); // x,y,width, height
-		//g.fillRect((int) (x-handler.getGameCamera().getxOffset()), (int) (y-handler.getGameCamera().getyOffset()), 20, 40); // x,y,width, height
-		//g.fillRect(30,30, 40,40); // x y width height
+	// Image from https://play.google.com/store/apps/details?id=com.phonyGames.platypus.android
+		
 		try {
 		    img = ImageIO.read(new File("Cat.png"));
 		} catch (IOException e) {
 			
 		}
-
-
+		// The player is placed at x and y at size Player_size
 		g.drawImage(img, (int) x, (int) y, PLAYER_SIZE, PLAYER_SIZE, null);
 		
 	}
 
-	// The dealth funciton goes here
 
 	public void getInput(int numWater){
 
@@ -97,24 +93,17 @@ public class Player extends Creature{
 		xMove = 0;
 		yMove = 0;
 
-		// System.out.println("WATER 1");
-		// System.out.println(handler.getGame().getInWater(0));
-		// System.out.println(handler.getGame().getOnLog(0));
-		// System.out.println("WATER 2");
-		// System.out.println(handler.getGame().getInWater(1));
-		// System.out.println(handler.getGame().getOnLog(1));
-
 		int logPlayerisOn = handler.getGame().getOnLog();
 		
 		for(int i = 0; i < numWater; i ++){
 			if(handler.getGame().getInWater(i) && logPlayerisOn == -1){
-				//System.out.println("DEAD 111111111111111");
+				// If the player is in the water and not on a log, then transition to endState
 				State.setState(endState);
 			}
 		}
 
 		if(handler.getKeyManager().aUp){
-			yMove = -speed; // Speed is in the creature classs
+			yMove = -speed;
 		}
 		if(handler.getKeyManager().aDown){
 			yMove = speed; 
