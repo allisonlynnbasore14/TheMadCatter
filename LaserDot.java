@@ -8,7 +8,9 @@ import java.io.IOException;
 
 public class LaserDot extends Targets{
 
-
+	// Class for dispalying the LaserDot target
+	// Image from http://unanything.wikia.com/wiki/File:Red_Dot.png
+	
 	public static BufferedImage img;
 
 	public LaserDot(Handler handler, float x, float y, String type){
@@ -17,8 +19,8 @@ public class LaserDot extends Targets{
 	}
 
 	public void tick(){
+		// Calls the move function in the targets file
 		move();
-
 	}
 
 	public void render(Graphics g){
